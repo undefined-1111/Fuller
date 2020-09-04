@@ -75,7 +75,7 @@ app.get("/", async(req, res) => {
     if(!visitors) { Visitors.create({ _id: 1, size: 1}); log(`${new Date()} [LOG] База данных статистики была создана`) }
     visitors.size++
     visitors.save()
-    let x = fs.readdirSync("./views/").length
+    let x = fs.readdirSync("./views/public/").length
     res.render("public/index.ejs", {
         "shorten": x,
         "visitors": visitors.size
