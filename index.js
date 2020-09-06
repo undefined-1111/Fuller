@@ -61,9 +61,33 @@ app.post("/create", (req, res) => {
         if(data !== undefined) {
             res.render("public/error_redirect_just_have.ejs")
         } else { // Если нет то делаем редирект
-            fs.appendFile(`./views/public/${req.body.wantlink}.ejs`, `Вас не редиректило потому что у вас не работает javascript, <a href="${req.body.tolink}">вот ваша ссылка на сайт редиректа</a> <script>window.location.href = "${req.body.tolink}";</script>`, function (err) {
+            let title = req.body.title || "Пользователь не поставил название"
+            let description = req.body.description || "Пользователь не поставил описание"
+            let color = req.body.color || "#000000"
+            let picture = req.body.picture || ""
+
+            fs.appendFile(`./views/public/${req.body.wantlink}.ejs`, `
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="${color}">
+    <meta property="og:title" content="${title}" />
+    <meta property="og:description" content="${description}" />
+    <meta property="og:url" content="fuller.glitch.me" />
+    <meta property="og:image" content="${picture}" />
+    <title>${title}</title>
+</head>
+<body>
+    Вас не редиректило потому что у вас не работает javascript, <a href="${req.body.tolink}">вот ваша ссылка на сайт редиректа</a> 
+    <script>window.location.href = "${req.body.tolink}";</script>
+</body>
+</html>
+            `, function (err) {
                 if (err) throw err;
-                res.render("public/generated_redirect.ejs", {"link": `https://fuller.ml/${req.body.wantlink}`})
+                res.render("public/generated_redirect.ejs", {"link": `https://fuller.glitch.me/${req.body.wantlink}`})
               });
         }
       });
