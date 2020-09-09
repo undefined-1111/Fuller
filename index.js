@@ -15,8 +15,10 @@ mongoose.connection.on('connected',()=>{
 // Схемы
 global.Visitors = require("./data/models/visitors.js")
 // Роутеры
+const psh = require("./routes/psh.js")
 const api = require("./routes/api.js")
 app.use("/api", api)
+app.use("/p/", psh)
 /////////////////////////////////////
 
 // LOGGING ////////////////////
