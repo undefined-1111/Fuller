@@ -18,7 +18,7 @@ router.get("/shorten-links", (req, res) => {
             "status": "succefull",
             "size": shorten 
         })
-    } catch {
+    } catch(err) {
         res.send({"status": "error"})
     }
 })
@@ -26,6 +26,11 @@ router.get("/shorten-links", (req, res) => {
 router.post("/create-shorten-link/", (req, res) => {
     if(!req.query.tolink || !req.query.wantlink) {
         res.send({"error": "you don't write all data"})
+        return
+    }
+
+    if(req.query.wantlink.includes("." || "/")) {
+        res.send({"status": "А теперь выйди и зайди нормально"})
         return
     }
 
@@ -44,7 +49,7 @@ router.post("/create-shorten-link/", (req, res) => {
             fs.appendFile(`./views/public/${req.query.wantlink}.ejs`, `Вас не редиректило потому что у вас не работает javascript, <a href="${req.query.tolink}">вот ваша ссылка на сайт редиректа</a> <script>window.location.href = "${req.query.tolink}";</script>`, function (err) {
                 if (err) throw err;
                 res.send({
-                    "status": "sucefull"
+                    "status": "succefull"
                 })
               });
         }
@@ -52,14 +57,14 @@ router.post("/create-shorten-link/", (req, res) => {
 })
 
 router.get("/check-url/:link", (req, res) => {
-    fs.readFile(`./views/${req.params.link}.ejs`, (err, data) => {
-        if(err) {
+    fs.readFile(`./views/public/${req.params.link}.ejs`, (err, data) => {
+        if(data != undefined) {
             res.send({
-                "status": false
+                "status": true
             })
         } else {
             res.send({
-                "status": true
+                "status": false
             })
         }
     })
