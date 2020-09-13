@@ -35,7 +35,7 @@ client.on("message", async message => {
         })
         res = await res.json()
 
-        if(res.status == "sucсefull") {
+        if(res.status == "succefull") {
             message.channel.send(`<a:My_best_verified:751471671541628998> Успешно создан! https://fuller.glitch.me/${args[1]}`)
         } else {
             message.channel.send(":x: Мне выдало ошибку, проверьте все правильно вы написали или нет?")
