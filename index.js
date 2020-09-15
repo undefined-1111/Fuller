@@ -58,6 +58,174 @@ client.on("message", async message => {
         message.member.roles.add("754609963199889469")
         message.channel.send("Ты нашел пасхалку! OwO")
     }
+  
+    if(message.content.startsWith("f!ban"){
+      
+        const args = message.content.slice("f!".length).slice("ban".length).trim().split(' ');
+        if(!message.member.permissions.has("BAN_MEMBERS")){
+            let noRights = new Discord.MessageEmbed()
+                .setTitle("Нет прав | Ban")
+                .setDescription("Увы, но у вас недостаточно прав для выполнения **ban**")
+                .setTimestamp()
+                .setColor("RED")
+            message.channel.send(noRights, message)
+            return
+        }
+
+        let toban = message.mentions.members.first()
+        let reason = args.slice(1).join(" ") || "Не указано"
+        if(!toban || !reason){
+            let noArgs = new Discord.MessageEmbed()
+                .setTitle("Недостаточно аргументов.")
+                .addFields(
+                    {
+                        name: "Аргумент 1",
+                        value: "@упоминание_игрока",
+                        inline: true
+                    },{
+                        name: "Аргумент 2",
+                        value: "Причина для бана",
+                        inline: true
+                    }
+                )
+                .setColor("BLUE")
+            message.channel.send(noArgs)
+            return
+        }
+
+        if(!toban.bannable){
+            let noI = new Discord.MessageEmbed()
+                .setTitle("Ошибка бана.")
+                .setDescription("Я не могу забанить данного пользователя.")
+                .setColor("RED")
+            message.channel.send(noI)
+            return
+        }
+
+        let forLogs = new Discord.MessageEmbed()
+            .setTitle("Блокировка | Выполнено.")
+            .setDescription(`Администратором ${message.author.tag} выполнена блокировка`)
+            .addField("Администратор:", `${message.member} [${message.member.id}]`, true)
+            .addField("Пользователь:", `${toban} [${toban.id}]`, true)
+            .addField("Причина:", `${reason}`, true)
+            .setTimestamp()
+            .setColor("DARK_ORANGE")
+        await setA(forLogs, message)
+
+        await toban.send(`Вы забанены на сервере **${message.guild.name}**, администратором ${message.member} за: ${reason}`).catch(e => console.error('Ошибка отправления при бане. Забей на это'))
+        await toban.ban({ days: 7, reason: `[${message.author.tag}] ${reason}` })
+        message.channel.send(forLogs)
+        await message.react("✅")
+    }
+          
+    if(message.content.startsWith("f!kick")){
+              const args = message.content.slice("f!".length).slice("kick".length).trim().split(' ');
+        if(!message.member.permissions.has("KICK_MEMBERS")){
+            let noRights = new Discord.MessageEmbed()
+                .setTitle("Нет прав | Kick")
+                .setDescription("Увы, но у вас недостаточно прав для выполнения **kick**")
+                .setTimestamp()
+                .setColor("RED")
+            message.channel.send(noRights, message)
+            return
+        }
+
+        let toban = message.mentions.members.first()
+        let reason = args.slice(1).join(" ") || "Не указано"
+        if(!toban || !reason){
+            let noArgs = new Discord.MessageEmbed()
+                .setTitle("Недостаточно аргументов.")
+                .addFields(
+                    {
+                        name: "Аргумент 1",
+                        value: "@упоминание_игрока",
+                        inline: true
+                    },{
+                        name: "Аргумент 2",
+                        value: "Причина для бана",
+                        inline: true
+                    }
+                )
+                .setColor("BLUE")
+            message.channel.send(noArgs)
+            return
+        }
+
+        if(!toban.bannable){
+            let noI = new Discord.MessageEmbed()
+                .setTitle("Ошибка бана.")
+                .setDescription("Я не могу забанить данного пользователя.")
+                .setColor("RED")
+            message.channel.send(noI)
+            return
+        }
+
+        let forLogs = new Discord.MessageEmbed()
+            .setTitle("Блокировка | Выполнено.")
+            .setDescription(`Администратором ${message.author.tag} выполнена блокировка`)
+            .addField("Администратор:", `${message.member} [${message.member.id}]`, true)
+            .addField("Пользователь:", `${toban} [${toban.id}]`, true)
+            .addField("Причина:", `${reason}`, true)
+            .setTimestamp()
+            .setColor("DARK_ORANGE")
+
+        await toban.send(`Вы забанены на сервере **${message.guild.name}**, администратором ${message.member} за: ${reason}`).catch(e => console.error('Ошибка отправления при бане. Забей на это'))
+        await toban.kick(`[${message.author.tag}] ${reason}`)
+        message.channel.send(forLogs)
+        await message.react("✅")
+    }
+
+    if(message.content.startsWith("f!purge")){
+      const args = message.content.slice("f!".length).slice("kick".length).trim().split(' ');
+        if(!message.member.permissions.has("MANAGE_MESSAGES")){
+            let noRights = new Discord.MessageEmbed()
+                .setTitle("Нет прав | Purge")
+                .setDescription("Увы, но у вас недостаточно прав для выполнения **purge**")
+                .setTimestamp()
+                .setColor("RED")
+            message.channel.send(noRights, message)
+            return
+        }
+
+        let msgs = args[0]
+        if(!msgs || msgs <= 0 || msgs >= 101 || isNaN(msgs)){
+            let noArgs = new Discord.MessageEmbed()
+                .setTitle("Недостаточно аргументов.")
+                .addFields(
+                    {
+                        name: "Аргумент 1",
+                        value: "Number - сообщения которые нужно удалить (1-100)",
+                        inline: true
+                    }
+                )
+                .setColor("BLUE")
+            message.channel.send(noArgs)
+            return
+        }
+
+
+        let forLogs = new Discord.MessageEmbed()
+            .setTitle("Очистка | Выполнено.")
+            .setDescription(`Администратором ${message.author.tag} выполнена очистка канала`)
+            .addField("Администратор:", `${message.member} [${message.member.id}]`, true)
+            .addField("Сообщений:", `${msgs}`, true)
+            .addField("Канал:", `${message.channel}`, true)
+            .setTimestamp()
+            .setColor("DARK_ORANGE")
+
+        await message.channel.bulkDelete(msgs).catch(async e => {
+            let noI = new Discord.MessageEmbed()
+                .setTitle("Ошибка очистки.")
+                .setDescription("Я хз чё случилось, но я не могу чистануть сообщения.")
+                .setColor("RED")
+            console.error(e)
+            await setA(noI, message)
+            message.channel.send(noI)
+            return
+        })
+        message.channel.send(forLogs)
+        await message.react("✅")
+    }
 })
 
 // Схемы
