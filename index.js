@@ -22,7 +22,8 @@ client.on("ready", () => {
 })
 
 client.on("message", async message => {
-    if(message.author.bot === true) return
+    if(message.author.bot === true) return 
+    if(message.channel.type === "dm")
     if(message.content.startsWith("f!create-shorten-link")) {
         const args = message.content.slice("f!".length).slice("create-shorten-link".length).trim().split(' ');
         if(!args[0] || !args[1]) {
@@ -30,13 +31,13 @@ client.on("message", async message => {
             return
         }
 
-        let res = await fetch(`https://fuller.glitch.me/api/create-shorten-link?tolink=${args[0]}&wantlink=${args[1]}`, {
+        let res = await fetch(`https://www.fulller.ml/api/create-shorten-link?tolink=${args[0]}&wantlink=${args[1]}`, {
             method: "POST"
         })
         res = await res.json()
 
         if(res.status == "succefull") {
-            message.channel.send(`<a:My_best_verified:751471671541628998> Успешно создан! https://fuller.glitch.me/${args[1]}`)
+            message.channel.send(`<a:My_best_verified:751471671541628998> Успешно создан! https://www.fulller.ml/${args[1]}`)
         } else {
             message.channel.send(":x: Мне выдало ошибку, проверьте все правильно вы написали или нет?")
         }
@@ -66,6 +67,13 @@ global.Visitors = require("./data/models/visitors.js")
 const api = require("./routes/api.js")
 app.use("/api", api)
 /////////////////////////////////////
+
+async function autofetch() {
+    let res = await fetch("https://www.fuller.ml/")
+    console.log(res)
+}
+
+setInterval(autofetch, 60000);
 
 // LOGGING ////////////////////
 function log(log_data) {
@@ -140,7 +148,7 @@ app.post("/create", (req, res) => {
 </html>
             `, function (err) {
                 if (err) throw err;
-                res.render("public/generated_redirect.ejs", {"link": `https://fuller.glitch.me/${req.body.wantlink}`})
+                res.render("public/generated_redirect.ejs", {"link": `https://www.fuller.ml/${req.body.wantlink}`})
               });
         }
       });
@@ -164,4 +172,4 @@ app.listen(config.port || 3000, () => {
     log(`${new Date()} [LOG] Сервер запущен`)
 })
 
-client.login("")
+client.login("NzUxMTQ3Mjg2NzIwOTM4MTA1.X1E2bA.5jaEBDf2NDcEWZ2Xolc9F2uGIGM")
