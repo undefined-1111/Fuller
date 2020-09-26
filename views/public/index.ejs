@@ -61,6 +61,7 @@
                     </div>
                     <button class="mybtn">Сократить</button>
                 </form>
+                <canvas id="myChart" width="300" style="margin-top: 150px;" height="100"></canvas>
             </div>
         </div>
     </header>
@@ -113,5 +114,91 @@ h4 {
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+    <script>
+        var ctx = document.getElementById('myChart').getContext('2d');
+        var myChart = new Chart(ctx, {
+            type: 'bar',
+            data: {
+                labels: [<%= _date %>],
+                datasets: [{
+                    label: 'Статистика посещений сайта',
+                    data: [<%= _size %>],
+                    backgroundColor: [
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(153, 102, 255, 0.2)',
+                        'rgba(255, 159, 64, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                        'rgba(255, 99, 132, 0.2)',
+                        'rgba(54, 162, 235, 0.2)',
+                        'rgba(255, 206, 86, 0.2)',
+                        'rgba(75, 192, 192, 0.2)',
+                    ],
+                    borderWidth: 2
+                }]
+            },
+            options: {
+                scales: {
+                    yAxes: [{
+                        ticks: {
+                            beginAtZero: true
+                        }
+                    }]
+                }
+            }
+        });
+        </script>
+        <script>
+
+            let ourart = 
+            `
+            ░█████╗░██╗░░░██╗██████╗░  ░██████╗████████╗░█████╗░████████╗░██████╗
+            ██╔══██╗██║░░░██║██╔══██╗  ██╔════╝╚══██╔══╝██╔══██╗╚══██╔══╝██╔════╝
+            ██║░░██║██║░░░██║██████╔╝  ╚█████╗░░░░██║░░░███████║░░░██║░░░╚█████╗░
+            ██║░░██║██║░░░██║██╔══██╗  ░╚═══██╗░░░██║░░░██╔══██║░░░██║░░░░╚═══██╗
+            ╚█████╔╝╚██████╔╝██║░░██║  ██████╔╝░░░██║░░░██║░░██║░░░██║░░░██████╔╝
+            ░╚════╝░░╚═════╝░╚═╝░░╚═╝  ╚═════╝░░░░╚═╝░░░╚═╝░░╚═╝░░░╚═╝░░░╚═════╝░
+            `
+            console.log(ourart)
+            console.log("✅ Статистика загружена")
+
+            async function stats() {
+                await fetch("/stats/")
+                await console.log("✅ Запрос статистики отправлен")
+            }
+            stats()
+        </script>
   </body>
 </html>

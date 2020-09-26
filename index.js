@@ -12,7 +12,7 @@ const fetch = require("node-fetch")
 // Подключение БД
 mongoose.connect("mongodb://localhost:2000", { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.connection.on('connected',()=>{
-  log(`${new Date()} [LOG] Подключился к базе данных`)
+  console.log(`[LOG] Подключился к базе данных`)
 })
 
 // BOT
@@ -61,27 +61,19 @@ client.on("message", async message => {
     }
 })
 
-// Схемы
-global.Visitors = require("./data/models/visitors.js")
 // Роутеры
 const api = require("./routes/api.js")
+const stats = require("./routes/stats.js")
 app.use("/api", api)
+app.use("/stats", stats)
 /////////////////////////////////////
 
 async function autofetch() {
-    let res = await fetch("https://www.fuller.ml/")
-    console.log(res)
+    await fetch("https://www.fuller.ml/")
 }
 
 setInterval(autofetch, 60000);
 
-// LOGGING ////////////////////
-function log(log_data) {
-    console.log(log_data)
-    fs.appendFile('logs.txt', `${log_data}\n`, function (err) {
-        if (err) throw err;
-      });
-}
 //////////////////////
 
 // Дабы мы могли получать инфу с запроса    
@@ -155,21 +147,30 @@ app.post("/create", (req, res) => {
 })
 
 // Главная страница
-app.get("/", async(req, res) => {
-    let visitors = await Visitors.findOne({ _id: 1 });
-    if(!visitors) { Visitors.create({ _id: 1, size: 1}); log(`${new Date()} [LOG] База данных статистики была создана`) }
-    visitors.size++
-    visitors.save()
-    let x = fs.readdirSync("./views/public/").length
-    res.render("public/index.ejs", {
-        "shorten": x,
-        "visitors": visitors.size
+app.get("/", async(reqd, resd) => {
+    global.date = []
+    global.size = []
+    const stat = require("./data/models/stats.js")
+    await stat.find({ }).sort({date: 1}).exec(async (err,res) => {
+        if(res.length === 0) date = "Статистика пустая!"
+        else if (res.length > 0){ for(i = 0; i < res.length; i++) {
+            let currentdb = res[i]
+
+            await date.push(currentdb.date)
+            await size.push(currentdb.size)
+        }}
+        // await date.sort(function(a, b){return a - b});
+        // await size.sort(function(a, b){return a - b});
+        resd.render("public/index.ejs", {
+            _date: String(date),
+            _size: size.join(",")
+        })
     })
 })
 
 // Запускаем приложение на 3000 порте или на порте который в конфиге
 app.listen(config.port || 3000, () => {
-    log(`${new Date()} [LOG] Сервер запущен`)
+    console.log(`[LOG] Сервер запущен`)
 })
 
-client.login("NzUxMTQ3Mjg2NzIwOTM4MTA1.X1E2bA.5jaEBDf2NDcEWZ2Xolc9F2uGIGM")
+client.login().catch(() => console.log("[TOKEN ERR] Токен инвалид / токена нету"))
