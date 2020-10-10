@@ -8,8 +8,10 @@ const fs = require("fs")
 const config = require("./config.json")
 global.mongoose = require("mongoose")
 const fetch = require("node-fetch")
+const chalk = require("chalk")
 
 // Подключение БД
+
 mongoose.connect("mongodb://localhost:2000", { useNewUrlParser: true, useUnifiedTopology: true });
 mongoose.connection.on('connected',()=>{
   console.log(`[LOG] Подключился к базе данных`)
@@ -168,9 +170,31 @@ app.get("/", async(reqd, resd) => {
     })
 })
 
-// Запускаем приложение на 3000 порте или на порте который в конфиге
-app.listen(config.port || 3000, () => {
-    console.log(`[LOG] Сервер запущен`)
-})
+client.login().catch(() => console.log(chalk.bold(chalk.red("[401] Token invalid"))))
 
-client.login().catch(() => console.log("[TOKEN ERR] Токен инвалид / токена нету"))
+app.listen(80)
+return
+// SSL | start server
+const http = require("http")
+const https = require("https")
+const privateKey = fs.readFileSync('/etc/letsencrypt/live/www.fuller.ml/privkey.pem', 'utf8');
+const certificate = fs.readFileSync('/etc/letsencrypt/live/www.fuller.ml/cert.pem', 'utf8');
+const ca = fs.readFileSync('/etc/letsencrypt/live/www.fuller.ml/chain.pem', 'utf8');
+
+const credentials = {
+	key: privateKey,
+	cert: certificate,
+	ca: ca
+};
+
+// Starting both http & https servers
+const httpServer = http.createServer(app);
+const httpsServer = https.createServer(credentials, app);
+
+httpServer.listen(80, () => {
+	console.log(chalk.green(chalk.bold("[200] HTTP сервер был запущен")))
+});
+
+httpsServer.listen(443, () => {
+	console.log(chalk.green(chalk.bold("[200] HTTPS сервер был запущен")));
+});

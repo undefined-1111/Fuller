@@ -9,10 +9,13 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "chalk": "^4.1.0",
     "discord.js": "^12.3.1",
     "ejs": "^3.1.5",
     "express": "^4.17.1",
     "fs": "0.0.1-security",
+    "http": "0.0.1-security",
+    "https": "^1.0.0",
     "moment": "^2.27.0",
     "mongoose": "^5.10.2",
     "node-fetch": "^2.6.1",
