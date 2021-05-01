@@ -1,0 +1,80 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link rel="icon" href="https://discordapp.com/assets/7c13aa0def6ccb6932f47dedd33f59c1.svg" type="image/x-icon">
+    <meta property="og:type" content="website">
+    <meta name="theme-color" content="#6F8EE0">
+    <meta property="og:title" content="Fuller" />
+    <meta property="og:description" content="Удобный скорачиватель ссылок" />
+    <meta property="og:url" content="www.fuller.ml" />
+    <meta property="og:image" content="https://discordapp.com/assets/7c13aa0def6ccb6932f47dedd33f59c1.svg" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;900&display=swap" rel="stylesheet">
+
+    <title>Fuller</title>
+  </head>
+  <body>
+    <header>
+        <div class="container">
+            <img src="https://discordapp.com/assets/7c13aa0def6ccb6932f47dedd33f59c1.svg" alt="Fuller" class="logo" id="logo">
+            <h4 class="madewithlove" id="madewithlove">Made with <3 </h4>
+            <h1 class="linkshorter" id="linkshorter">Скорачиватель</h1>
+            <div class="inputs">
+                <form action="create" method="POST">
+                    <input type="url" name="tolink" id="tolink" class="tolink form-control" style="margin-top: 50px; margin-bottom: 10px;" placeholder="Какую ссылку ты хочешь скоратить">
+                    <input type="text" name="wantlink" id="wantlink" class="wantlink form-control" style="margin-bottom: 15px;" placeholder="Какой сокращение ты хочешь">
+
+                    <button class="mybtn">Сократить</button>
+                </form>
+                <canvas id="myChart" width="300" style="margin-top: 150px;" height="100"></canvas>
+            </div>
+        </div>
+    </header>
+
+    <style>
+body {
+    font-family: "Montserrat", sans-serif;
+}
+.container {
+    margin-top: 70px;
+}
+.logo {
+    width: 80px;
+    height: 80px;
+    box-sizing: border-box;
+}
+h4 {
+    font-weight: 900;
+    color: #6F8EE0;
+    opacity: 50%;
+}
+.madewithlove {
+    margin-top: 170px;
+}
+.linkshorter {
+    font-weight: 900;
+    color: #6F8EE0;
+}
+.mybtn {
+    text-align: center;
+    background: #6F8EE0;
+    box-shadow: 0px;
+    display: block;
+    color: #fff;
+    font-weight: 900;
+    padding: 20px;
+    border: 0px;
+    border-radius: 3px;
+    margin-top: 50px;
+    width: 200px;
+}
+    </style>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
+  </body>
+</html>
