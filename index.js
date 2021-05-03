@@ -4,15 +4,6 @@ const chalk = require("chalk")
 const mongoose = require("mongoose")
 app.use(express.urlencoded({ extended: false }))
 
-mongoose.connect("mongodb+srv://undefined:undefined@cluster0.wks5o.mongodb.net/fuller", { useNewUrlParser: true, useUnifiedTopology: true })
-mongoose.connection.on('connected',()=>{
-    console.log(
-        chalk.bold(
-            chalk.green("[ LOG ] Connected to db")
-        )
-    )
-})
-
 app.get("/", (req,res) => {
     res.render("index.ejs")
 })
