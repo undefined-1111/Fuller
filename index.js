@@ -4,6 +4,15 @@ const chalk = require("chalk")
 const mongoose = require("mongoose")
 app.use(express.urlencoded({ extended: false }))
 
+mongoose.connect("", { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connection.on('connected',()=>{
+    console.log(
+        chalk.bold(
+            chalk.green("[ 200 ] Connected to db")
+        )
+    )
+})
+
 app.get("/", (req,res) => {
     res.render("index.ejs")
 })
