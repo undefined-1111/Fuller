@@ -3,12 +3,13 @@ const app = express()
 const chalk = require("chalk")
 const mongoose = require("mongoose")
 app.use(express.urlencoded({ extended: false }))
+app.use(express.static("views"))
 
-mongoose.connect("", { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect("mongodb+srv://undefined:undefined@cluster0.wks5o.mongodb.net/fuller", { useNewUrlParser: true, useUnifiedTopology: true })
 mongoose.connection.on('connected',()=>{
     console.log(
         chalk.bold(
-            chalk.green("[ 200 ] Connected to db")
+            chalk.green("[ LOG ] Connected to db")
         )
     )
 })
@@ -38,8 +39,8 @@ app.post("/create", async(req,res) => {
             siteto: req.body.tolink,
             name: req.body.wantlink,
         })
-        res.render("created.ejs", {
-            link: req.body.wantlink
+        res.render("redirect-created.ejs", {
+            wantlink: req.body.wantlink
         })
         return
     } else {

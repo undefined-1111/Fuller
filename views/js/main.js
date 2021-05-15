@@ -1,0 +1,3 @@
+function deleteblock() {
+    $(".news").remove()
+}

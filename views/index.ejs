@@ -1,80 +1,105 @@
-<!doctype html>
-<html lang="en">
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="icon" href="https://discordapp.com/assets/7c13aa0def6ccb6932f47dedd33f59c1.svg" type="image/x-icon">
-    <meta property="og:type" content="website">
-    <meta name="theme-color" content="#6F8EE0">
-    <meta property="og:title" content="Fuller" />
-    <meta property="og:description" content="Удобный скорачиватель ссылок" />
-    <meta property="og:url" content="www.fuller.ml" />
-    <meta property="og:image" content="https://discordapp.com/assets/7c13aa0def6ccb6932f47dedd33f59c1.svg" />
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;900&display=swap" rel="stylesheet">
-
-    <title>Fuller</title>
-  </head>
-  <body>
-    <header>
-        <div class="container">
-            <img src="https://discordapp.com/assets/7c13aa0def6ccb6932f47dedd33f59c1.svg" alt="Fuller" class="logo" id="logo">
-            <h4 class="madewithlove" id="madewithlove">Made with <3 </h4>
-            <h1 class="linkshorter" id="linkshorter">Скорачиватель</h1>
-            <div class="inputs">
-                <form action="create" method="POST">
-                    <input type="url" name="tolink" id="tolink" class="tolink form-control" style="margin-top: 50px; margin-bottom: 10px;" placeholder="Какую ссылку ты хочешь скоратить">
-                    <input type="text" name="wantlink" id="wantlink" class="wantlink form-control" style="margin-bottom: 15px;" placeholder="Какой сокращение ты хочешь">
-
-                    <button class="mybtn">Сократить</button>
-                </form>
-                <canvas id="myChart" width="300" style="margin-top: 150px;" height="100"></canvas>
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="css/tailwind.min.css">
+    <link rel="stylesheet" href="css/main.css">
+    <title>Fuller | Главная</title>
+</head>
+<body class="text-gray-700">
+            <div class="news">
+              <div class="bg-indigo-600">
+                <div class="max-w-7xl mx-auto py-3 px-3 sm:px-6 lg:px-8">
+                  <div class="flex items-center justify-between flex-wrap">
+                    <div class="w-0 flex-1 flex items-center">
+                      <span class="flex p-2 rounded-lg bg-indigo-800">
+                        <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 5.882V19.24a1.76 1.76 0 01-3.417.592l-2.147-6.15M18 13a3 3 0 100-6M5.436 13.683A4.001 4.001 0 017 6h1.832c4.1 0 7.625-1.234 9.168-3v14c-1.543-1.766-5.067-3-9.168-3H7a3.988 3.988 0 01-1.564-.317z" />
+                        </svg>
+                      </span>
+                      <p class="ml-3 font-medium text-white truncate">
+                        Мы выпустили версию 3.0, которую вы видите сейчас на своих глазах 🎉
+                      </p>
+                    </div>
+                    <div class="order-2 flex-shrink-0 sm:order-3 sm:ml-3">
+                      <button type="button" class="-mr-1 flex p-2 rounded-md hover:bg-indigo-500 focus:outline-none focus:ring-2 focus:ring-white sm:-mr-2" onclick="deleteblock()">
+                        <!-- Heroicon name: outline/x -->
+                        <svg class="h-6 w-6 text-white" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+                        </svg>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
+  <header>
+    <div class="container mx-auto px-10">
+
+      <header>
+        <img class="logo mt-10" src="img/link.svg">
+        <h1 class="text-4xl sm:text-5xl	font-black title">Удобный <span class="text-indigo-600">сокращатель</span> ссылок</h1>
+        <p class="text-2xl mt-5 ">Удобный сокращатель ссылок который имеет свое АПИ</p>
+      </header>
+  
+      <div class="mt-12">
+        <form action="create" method="POST" class="flex flex-col md:flex-row justify-start -m-2 text-lg w-full">
+          <input type="url" name="tolink" placeholder="Ссылка для сокращение" class="border-2 rounded-md border-indigo-600 placeholder-indigo-600 px-8 py-4 m-2 sm:w-full md:w-2/5" />
+          <input type="text" name="wantlink" placeholder="Название" class="border-2 rounded-md border-indigo-600 placeholder-indigo-600 px-8 py-4 m-2 sm:w-full md:w-2/5" />
+          <button class="rounded-md bg-indigo-600 px-8 py-4 m-2 sm:w-full md:w-1/5 text-white">Создать</button>
+        </form>
+      </div>
+    </div>
+  </header>
+
+  <section class="mt-24">
+    <div class="container mx-auto px-10">
+      <h1 class="text-4xl font-black mb-7 text-center md:text-left">Немного <span class="text-indigo-600">статистики</span></h1>
+      <div class="flex justify-between mx-auto flex-col md:flex-row">
+        <div class="text-center mt-8 md:mt-0">
+          <p class="text-xl">Сокращено ссылок</p>
+          <h1 class="text-4xl font-black text-indigo-600">100</h1>
         </div>
-    </header>
+        <div class="text-center mt-8 md:mt-0">
+          <p class="text-xl">Посещений за сегодня</p>
+          <h1 class="text-4xl font-black text-indigo-600">123</h1>
+        </div>
+        <div class="text-center mt-8 md:mt-0">
+          <p class="text-xl">Посещений за все время</p>
+          <h1 class="text-4xl font-black text-indigo-600">6974</h1>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <style>
-body {
-    font-family: "Montserrat", sans-serif;
-}
-.container {
-    margin-top: 70px;
-}
-.logo {
-    width: 80px;
-    height: 80px;
-    box-sizing: border-box;
-}
-h4 {
-    font-weight: 900;
-    color: #6F8EE0;
-    opacity: 50%;
-}
-.madewithlove {
-    margin-top: 170px;
-}
-.linkshorter {
-    font-weight: 900;
-    color: #6F8EE0;
-}
-.mybtn {
-    text-align: center;
-    background: #6F8EE0;
-    box-shadow: 0px;
-    display: block;
-    color: #fff;
-    font-weight: 900;
-    padding: 20px;
-    border: 0px;
-    border-radius: 3px;
-    margin-top: 50px;
-    width: 200px;
-}
-    </style>
+  <section class="mt-14">
+    <div class="container mx-auto px-10">
+      <div class="py-8 lg:flex lg:items-center lg:justify-between">
+        <h2 class="text-3xl text-black font-extrabold tracking-tight text-gray-700 sm:text-4xl">
+          <span class="block">Также мы имеем полностью</span>
+          <span class="block text-indigo-600">исходный код</span>
+        </h2>
+        <div class="mt-8 flex lg:mt-0 lg:flex-shrink-0">
+          <div class="inline-flex rounded-md shadow">
+            <a href="https://github.com/undefined-1111/Fuller" class="inline-flex items-center text-right justify-center px-5 ml-full py-3 border border-transparent text-base font-medium rounded-md text-white bg-indigo-600 hover:bg-indigo-700">
+              Открыть github
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.3/Chart.min.js"></script>
-  </body>
+  <footer class="bg-indigo-600 p-8 text-white font-bold mt-24">
+    <div class="container mx-auto px-10">
+      <a href="https://github.com/undefined-1111/Fuller"><img src="./img/github.svg" class="w-10 mb-3"></a>
+      <div class="">Icons made by <a href="https://www.freepik.com" title="Freepik">Freepik</a> from <a href="https://www.flaticon.com/" title="Flaticon">www.flaticon.com</a></div>
+    </div>
+  </footer>
+
+  <script src="./js/jquery.js"></script>
+  <script src="./js/main.js""></script>
+
+</body>
 </html>
