@@ -5,7 +5,7 @@ const mongoose = require("mongoose")
 app.use(express.urlencoded({ extended: false }))
 app.use(express.static("views"))
 
-mongoose.connect("mongodb+srv://undefined:undefined@cluster0.wks5o.mongodb.net/fuller", { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect("", { useNewUrlParser: true, useUnifiedTopology: true })
 mongoose.connection.on('connected',()=>{
     console.log(
         chalk.bold(
