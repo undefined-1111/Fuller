@@ -14,6 +14,10 @@ mongoose.connection.on('connected',()=>{
     )
 })
 
+app.get("/notes-main", (req,res) => {
+    res.render("notes-main.ejs")
+})
+
 app.get("/", (req,res) => {
     res.render("index.ejs")
 })
@@ -23,7 +27,15 @@ app.get("/:site", async(req,res) => {
     let shorted = require("./data/models/shorted.js")
     let finding = await shorted.findOne({name: aname})
     if(!finding) {
-        res.render("404.ejs")
+        let notes = require("./data/models/notes.js")
+        finding = await notes.findOne({name: aname})
+        if(!finding) {
+            res.render("404.ejs")
+        } else {
+            res.render("viewanote.ejs", {
+                note: finding.note
+            })
+        }
         return
     } else {
         res.redirect(finding.siteto)
@@ -45,6 +57,24 @@ app.post("/create", async(req,res) => {
         return
     } else {
         res.render("this_redirectname_just_have.ejs")
+        return
+    }
+})
+
+app.post("/create-note", async(req,res) => {
+    let notes = require("./data/models/notes.js")
+    let finding = await notes.findOne({name: req.body.wantlink})
+    if(!finding) {
+        let create = await notes.create({
+            note: req.body.notetext,
+            name: req.body.wantlink,
+        })
+        res.render("note-created.ejs", {
+            wantlink: req.body.wantlink
+        })
+        return
+    } else {
+        res.render("this_notename_just_have.ejs")
         return
     }
 })
