@@ -15,11 +15,11 @@ mongoose.connection.on('connected',()=>{
 })
 
 app.get("/notes-main", (req,res) => {
-    res.render("notes-main.ejs")
+    res.render("notes/notes-main.ejs")
 })
 
 app.get("/", (req,res) => {
-    res.render("index.ejs")
+    res.render("shorter/index.ejs")
 })
 
 app.get("/:site", async(req,res) => {
@@ -32,7 +32,7 @@ app.get("/:site", async(req,res) => {
         if(!finding) {
             res.render("404.ejs")
         } else {
-            res.render("viewanote.ejs", {
+            res.render("notes/viewanote.ejs", {
                 note: finding.note
             })
         }
@@ -51,12 +51,12 @@ app.post("/create", async(req,res) => {
             siteto: req.body.tolink,
             name: req.body.wantlink,
         })
-        res.render("redirect-created.ejs", {
+        res.render("shorter/redirect-created.ejs", {
             wantlink: req.body.wantlink
         })
         return
     } else {
-        res.render("this_redirectname_just_have.ejs")
+        res.render("shorter/this_redirectname_just_have.ejs")
         return
     }
 })
@@ -69,12 +69,12 @@ app.post("/create-note", async(req,res) => {
             note: req.body.notetext,
             name: req.body.wantlink,
         })
-        res.render("note-created.ejs", {
+        res.render("notes/note-created.ejs", {
             wantlink: req.body.wantlink
         })
         return
     } else {
-        res.render("this_notename_just_have.ejs")
+        res.render("notes/this_notename_just_have.ejs")
         return
     }
 })
