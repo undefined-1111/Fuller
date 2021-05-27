@@ -5,11 +5,17 @@ const mongoose = require("mongoose")
 app.use(express.urlencoded({ extended: false }))
 app.use(express.static("views"))
 
-mongoose.connect("", { useNewUrlParser: true, useUnifiedTopology: true })
+mongoose.connect("mongodb+srv://undefined:8kLbQ18n2zfQemlF@cluster0.wks5o.mongodb.net/fuller", { useNewUrlParser: true, useUnifiedTopology: true }).catch(() => {
+    console.log(
+        chalk.bold(
+            chalk.red(`[ ERR ] Not connected to db!`)
+        )
+    )
+})
 mongoose.connection.on('connected',()=>{
     console.log(
         chalk.bold(
-            chalk.green("[ LOG ] Connected to db")
+            chalk.green("[ OK ] Connected to db")
         )
     )
 })
@@ -79,10 +85,45 @@ app.post("/create-note", async(req,res) => {
     }
 })
 
-app.listen(3000, () => {
+app.listen(3000, async () => {
     console.log(
         chalk.bold(
-            chalk.green("[ LOG ] Started")
+            chalk.blueBright(
+                `
+
+
+                ███████╗██╗░░░██╗██╗░░░░░██╗░░░░░███████╗██████╗░
+                ██╔════╝██║░░░██║██║░░░░░██║░░░░░██╔════╝██╔══██╗
+                █████╗░░██║░░░██║██║░░░░░██║░░░░░█████╗░░██████╔╝
+                ██╔══╝░░██║░░░██║██║░░░░░██║░░░░░██╔══╝░░██╔══██╗
+                ██║░░░░░╚██████╔╝███████╗███████╗███████╗██║░░██║
+                ╚═╝░░░░░░╚═════╝░╚══════╝╚══════╝╚══════╝╚═╝░░╚═╝
+                
+                
+                `
+            )
         )
     )
+    console.log(
+        chalk.bold(
+            chalk.green("[ OK ] Started web server")
+        )
+    )
+
+    try {
+        const ngrok = require("ngrok")
+        const url = await ngrok.connect(3000);
+
+        console.log(
+            chalk.bold(
+                chalk.green(`[ OK ] Ngrok created! ${url}`)
+            )
+        )
+    } catch {
+        console.log(
+            chalk.bold(
+                chalk.red(`[ ERR ] Ngrok not created!`)
+            )
+        )
+    }
 })
