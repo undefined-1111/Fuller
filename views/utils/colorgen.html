@@ -4,13 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/main.css">
+    <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
     <title>Color-gen</title>
 </head>
 <body>
+    <div class="grid grid-cols-6">
+        <div id="1" style="opacity: 75%;" class="h-screen w-full">
+
+        </div>
+    
+        <div id="2" style="opacity: 75%;" class="h-screen w-full">
+    
+        </div>
+    
+        <div id="3" style="opacity: 75%;" class="h-screen w-full">
+    
+        </div>
+    
+        <div id="4" style="opacity: 75%;" class="h-screen w-full">
+    
+        </div>
+
+        <div id="5" style="opacity: 75%;" class="h-screen w-full">
+    
+        </div>
+
+        <div id="6" style="opacity: 75%;" class="h-screen w-full">
+    
+        </div>
+    </div>
     <script>
-        let color = "#" + Math.random().toString(16).slice(2, 8)
-        document.body.style.background = color;
-        document.body.innerHTML += `<p style="color: #fff; font-weight: 900;">${color}</p>`
+        for(let i = 1; i < 7; i++) {
+            console.log(i)
+            let color = "#" + Math.random().toString(16).slice(2, 8)
+            let el = document.getElementById(i)
+            console.log(el)
+            el.style.background = color;
+            // el.innerHTML += `<p style="color: #fff; font-weight: 900; margin-top: 100%;" class="text-center text-3xl">${color}</p>`
+        }
     </script>
 </body>
 </html>

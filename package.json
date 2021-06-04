@@ -10,9 +10,11 @@
   "license": "ISC",
   "dependencies": {
     "chalk": "^4.1.0",
+    "cherio": "^1.0.0-rc.2",
     "ejs": "^3.1.6",
     "express": "^4.17.1",
     "mongoose": "^5.12.4",
-    "ngrok": "^4.0.1"
+    "ngrok": "^4.0.1",
+    "node-fetch": "^2.6.1"
   }
 }

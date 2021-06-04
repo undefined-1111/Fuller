@@ -2,6 +2,7 @@ const express = require("express")
 const app = express()
 const chalk = require("chalk")
 const mongoose = require("mongoose")
+const crypto = require("./functions/get.js")
 app.use(express.urlencoded({ extended: false }))
 app.use(express.static("views"))
 
@@ -26,6 +27,10 @@ app.get("/notes-main", (req,res) => {
 
 app.get("/", (req,res) => {
     res.render("shorter/index.ejs")
+})
+
+app.get("/cryptocurrency", async(req,res) => {
+    res.render("crypto.ejs")
 })
 
 app.get("/:site", async(req,res) => {
@@ -83,6 +88,30 @@ app.post("/create-note", async(req,res) => {
         res.render("notes/this_notename_just_have.ejs")
         return
     }
+})
+
+app.get("/api/getmonero", (req,res) => {
+    crypto.run("xmr").then(data => {
+        res.send(`${data}`)
+    })
+})
+
+app.get("/api/getbtc", (req,res) => {
+    crypto.run("btc").then(data => {
+        res.send(`${data}`)
+    })
+})
+
+app.get("/api/geteth", async(req,res) => {
+    crypto.run("eth").then(data => {
+        res.send(`${data}`)
+    })
+})
+
+app.get("/api/getdoge", async(req,res) => {
+    crypto.run("doge").then(data => {
+        res.send(`${data}`)
+    })
 })
 
 app.listen(3000, async () => {
