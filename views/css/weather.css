@@ -1,0 +1,94 @@
+header {
+    margin-top: 75px;
+    font-family: 'Montserrat', sans-serif;
+}
+
+.logo {
+    width: 75px;
+    height: 75px;
+    margin-bottom: 50px;
+}
+
+.search {
+  margin-bottom: 60px
+}
+
+.acard {
+    width: 100%;
+    height: 350px;
+    border-radius: 30px;
+}
+
+.cels {
+    padding-top: 110px;
+    padding-left: 80px;
+    color: #fff;
+    font-size: 40px;
+    font-weight: 900;
+}
+
+.indicators {
+    display: flex;
+    padding-top: 20px;
+}
+
+.textincard {
+    padding-left: 80px;
+    font-size: 24px;
+    color: #fff;
+    text-transform: uppercase;
+}
+
+.windblock {
+    display: flex;
+    color: #fff;
+    margin-left: 80px;
+}
+
+.windspeed {
+    padding-left: 10px;
+}
+
+.humidity {
+    margin-left: 15px;
+    display: flex;
+    color: #fff;
+}
+
+.humidityproc {
+    padding-left: 5px;
+}
+
+.pressure {
+    margin-left: 15px;
+    display: flex;
+    color: #fff;
+}
+
+.pressuretext {
+    padding-left: 10px;
+}
+
+.night {
+    background: url("../img/night.jpg") no-repeat;
+}
+
+.sunset {
+    background: url("../img/sunset.jpg") no-repeat;
+}
+
+.morning {
+    background: url("../img/morning.jpg") no-repeat;
+    box-shadow: 0px 4px 7px 2px rgba(160, 229, 251, 0.58);
+    transition: all ease 2s;
+}
+
+.morning:hover {
+    background: url("../img/morning.jpg") no-repeat;
+    box-shadow: 0px 9px 30px 10px rgba(160, 229, 251, 0.78);
+}
+
+.stable {
+    background: url("../img/stable.jpg") no-repeat;
+}
+

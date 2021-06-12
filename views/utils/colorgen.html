@@ -37,35 +37,31 @@
         </header>
     </div>
     
-    <div class="grid grid-cols-6 mt-10">
-        <div id="1" style="opacity: 75%;" class="h-screen w-full">
+    <div class="grid grid-cols-5 mt-10">
+        <div id="1" style="opacity: 20%;" class="h-screen w-full">
 
         </div>
     
-        <div id="2" style="opacity: 75%;" class="h-screen w-full">
+        <div id="2" style="opacity: 40%;" class="h-screen w-full">
     
         </div>
     
-        <div id="3" style="opacity: 75%;" class="h-screen w-full">
+        <div id="3" style="opacity: 60%;" class="h-screen w-full">
     
         </div>
     
-        <div id="4" style="opacity: 75%;" class="h-screen w-full">
-    
-        </div>
-
-        <div id="5" style="opacity: 75%;" class="h-screen w-full">
+        <div id="4" style="opacity: 80%;" class="h-screen w-full">
     
         </div>
 
-        <div id="6" style="opacity: 75%;" class="h-screen w-full">
+        <div id="5"  class="h-screen w-full">
     
         </div>
     </div>
     <script>
-        for(let i = 1; i < 7; i++) {
+        let color = "#" + Math.random().toString(16).slice(2, 8)
+        for(let i = 1; i < 6; i++) {
             console.log(i)
-            let color = "#" + Math.random().toString(16).slice(2, 8)
             let el = document.getElementById(i)
             console.log(el)
             el.style.background = color;

