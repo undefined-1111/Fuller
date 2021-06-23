@@ -7,7 +7,7 @@ const config = require("./config.json")
 app.use(express.urlencoded({ extended: false }))
 app.use(express.static("views"))
 
-mongoose.connect("mongodb+srv://undefined:8kLbQ18n2zfQemlF@cluster0.wks5o.mongodb.net/fuller", { useNewUrlParser: true, useUnifiedTopology: true }).catch(() => {
+mongoose.connect(config.mongodb, { useNewUrlParser: true, useUnifiedTopology: true }).catch(() => {
     console.log(
         chalk.bold(
             chalk.red(`[ ERR ] Not connected to db!`)
@@ -175,7 +175,7 @@ app.listen(3000, async () => {
     )
     console.log(
         chalk.bold(
-            chalk.green("[ OK ] Started web server")
+            chalk.green("[ OK ] Started web server. http://localhost:3000")
         )
     )
 

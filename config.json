@@ -1,4 +1,6 @@
 {
     "nick": "1",
-    "pass": "1"
+    "pass": "1",
+    "tokenbot": "1813239526:AAEpxDmORvhwktMmw9GS0UggtzeYmZ6cBn8",
+    "mongodb": "mongodb+srv://undefined:sDe09TBl2BBMRhV3@cluster0.wks5o.mongodb.net/fuller"
 }
